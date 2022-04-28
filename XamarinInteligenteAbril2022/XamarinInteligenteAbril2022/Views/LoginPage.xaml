@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    Title="Inicio"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinInteligenteAbril2022.Views.LoginPage">
+        <Grid ColumnDefinitions="*,8*,1*" RowDefinitions="75,auto,auto,auto,auto,auto,auto">
+            <Label Grid.Column="1" Grid.Row="0" Text="Xamarin Inteligente"/>
+            <Label Grid.Column="1" Grid.Row="1" >Inicia tu sesión</Label>
+            <Label Grid.Column="1" Grid.Row="2" >
+                <Label.Text>
+                    Introduce tus datos de acceso.
+                </Label.Text>
+            </Label>
+            <Entry Grid.Column="1" Grid.Row="3" Placeholder="Usuario"/>
+            <Entry Grid.Column="1" Grid.Row="4" Placeholder="Contraseña" IsPassword="True"/>
+        <ActivityIndicator Grid.Column="1" Grid.Row="5" IsRunning="True" IsVisible="True"/>
+        <Button Grid.Column="1" Grid.Row="6" Text="Inicia sesión"/>
+        </Grid>
+</ContentPage>
