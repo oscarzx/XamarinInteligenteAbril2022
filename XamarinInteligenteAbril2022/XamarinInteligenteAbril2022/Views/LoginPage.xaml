@@ -1,20 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-    Title="Inicio"
-    xmlns="http://xamarin.com/schemas/2014/forms"
+<controls:BindedPage  
+    
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinInteligenteAbril2022.Views.LoginPage">
-        <Grid ColumnDefinitions="*,8*,1*" RowDefinitions="75,auto,auto,auto,auto,auto,auto">
-            <Label Grid.Column="1" Grid.Row="0" Text="Xamarin Inteligente"/>
-            <Label Grid.Column="1" Grid.Row="1" >Inicia tu sesión</Label>
-            <Label Grid.Column="1" Grid.Row="2" >
-                <Label.Text>
-                    Introduce tus datos de acceso.
-                </Label.Text>
-            </Label>
-            <Entry Grid.Column="1" Grid.Row="3" Placeholder="Usuario"/>
-            <Entry Grid.Column="1" Grid.Row="4" Placeholder="Contraseña" IsPassword="True"/>
-        <ActivityIndicator Grid.Column="1" Grid.Row="5" IsRunning="True" IsVisible="True"/>
-        <Button Grid.Column="1" Grid.Row="6" Text="Inicia sesión"/>
-        </Grid>
-</ContentPage>
+             x:Class="XamarinInteligenteAbril2022.Views.LoginPage"
+             xmlns:controls="clr-namespace:XamarinInteligenteAbril2022.AppBase.Controls"
+             xmlns:vm="clr-namespace:XamarinInteligenteAbril2022.ViewModels">
+
+    <controls:BindedPage.BindingContext>
+        <vm:LoginViewModel/>
+    </controls:BindedPage.BindingContext>
+
+    <Grid ColumnDefinitions="*,8*,1*" RowDefinitions="75,auto,auto,auto,auto,auto,auto,auto">
+
+        <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource Header}" Text="Xamarin Inteligente"/>
+        <Label Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" >Inicia tu sesión</Label>
+        <Label Grid.Column="1" Grid.Row="2" HorizontalOptions="Center" Margin="0,0,0,20" >
+
+            <Label.Text>
+                Introduce tus datos de acceso.
+            </Label.Text>
+        </Label>
+
+        <Entry x:Name="userEntry" Grid.Column="1" Grid.Row="3" Text="{Binding UserName}" Placeholder="Usuario">
+            <Entry.Triggers>
+                <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                    <Setter Property="TextColor" Value="Brown"/>
+                </Trigger>
+            </Entry.Triggers>
+        </Entry>
+        <Label Grid.Column="1" Grid.Row="4" Text="Escribe tu nombre de usuario" 
+               TextColor="{StaticResource ErrorColor}" IsVisible="false">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference userEntry}, Path=Text.Length}" Value="0">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+        <Entry Grid.Column="1" Grid.Row="5" Text="{Binding Password}" Placeholder="Contraseña" IsPassword="True">
+            <Entry.Triggers>
+                <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                    <Setter Property="TextColor" Value="Brown"/>
+                </Trigger>
+            </Entry.Triggers>
+        </Entry>
+        <ActivityIndicator Grid.Column="1" Grid.Row="6" IsRunning="{Binding IsBusy}" IsVisible="True"/>
+        <Button Grid.Column="1" Grid.Row="7" Text="Inicia sesión"/>
+
+        <Label Grid.Column="1" Grid.Row="8" Text="Registrar nuevo usuario" 
+               HorizontalOptions="Center" TextColor="{StaticResource LinkColor}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SignupCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+    </Grid>
+
+</controls:BindedPage>
